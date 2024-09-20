@@ -4,8 +4,8 @@ const notes = require('./notes')
 
 const init = async () => {
     const server = Hapi.server({
-        port: process.env.PORT,
-        host: '0.0.0.0',
+        port: 5000,
+        host: 'localhost',
         routes: {
             cors: {
                 origin: ['*'],
