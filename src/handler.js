@@ -157,7 +157,9 @@ const getBooksHandler = (req, h) => {
 
     const response =  h.response({
         status: 'success',
-        data
+        data: {
+            books: data
+        }
     })
 
     response.code(200)
