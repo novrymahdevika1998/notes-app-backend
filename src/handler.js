@@ -149,10 +149,16 @@ const addBookHandler = (req, h) => {
 }
 
 const getBooksHandler = (req, h) => {
+    const data = books.map(book => ({
+        id: book.id,
+        name: book.name,
+        publisher: book.publisher,
+    }))
+
     const response =  h.response({
         status: 'success',
         data: {
-            books,
+            data,
         }
     })
 
