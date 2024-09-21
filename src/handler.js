@@ -116,8 +116,6 @@ const addBookHandler = (req, h) => {
 
     const newBook = { name, year, author, summary, publisher, pageCount, readPage, reading, id, insertedAt, updatedAt, finished }
 
-    books.push(newBook)
-
     if (!name) {
         const response = h.response({
             status: 'fail',
@@ -144,12 +142,29 @@ const addBookHandler = (req, h) => {
         }
     })
 
+    books.push(newBook)
     response.code(201)
     return response;
 }
 
 const getBooksHandler = (req, h) => {
-    const data = books.map(book => ({
+    const { name, reading, finished } = req.query;
+
+    let results = [...books]
+
+    if (name) {
+        results = results.filter(book => book.name.toLowerCase().includes(name.toLowerCase()))
+    }
+
+    if (reading) {
+        results = results.filter(book => book.reading === Boolean(parseInt(reading)))
+    }
+
+    if (finished) {
+        results = results.filter(book => book.finished === Boolean(parseInt(finished)))
+    }
+
+    const data = results.map(book => ({
         id: book.id,
         name: book.name,
         publisher: book.publisher,
